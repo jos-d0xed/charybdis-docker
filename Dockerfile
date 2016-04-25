@@ -19,7 +19,7 @@ RUN wget https://github.com/charybdis-ircd/charybdis/archive/charybdis-3.5.1.tar
 mkdir charybdis-build && \
 tar xfz charybdis-3.5.1.tar.gz -C charybdis-build
 RUN cd charybdis-build/* && \
-./configure --prefix=/opt/charybdis/ --with-topiclen=420 && \
+./configure --prefix=/opt/charybdis/ && \
 make && \
 make install
 RUN chown -R ircd:ircd /opt/charybdis
@@ -28,7 +28,7 @@ WORKDIR /root
 RUN wget https://github.com/atheme/atheme/archive/atheme-7.2.6.tar.gz && \
 mkdir atheme-build && \
 tar xfz atheme-7.2.6.tar.gz -C atheme-build
-RUN cd charybdis-build/* && \
+RUN cd atheme-build/* && \
 ./configure --enable-contrib --prefix=/opt/atheme/ && \
 make && \
 make install

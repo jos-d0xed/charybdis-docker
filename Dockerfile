@@ -7,7 +7,9 @@ flex \
 libssl-dev \
 build-essential \
 wget \
-supervisor
+supervisor \
+git \
+pkg-config
 
 RUN groupadd -r ircd && \
 useradd -r -u 1000 -d /opt/charybdis -g ircd ircd
@@ -22,23 +24,26 @@ RUN cd charybdis-build/* && \
 ./configure --prefix=/opt/charybdis/ && \
 make && \
 make install
-RUN chown -R ircd:ircd /opt/charybdis
 
 WORKDIR /root
-RUN wget https://github.com/atheme/atheme/archive/atheme-7.2.6.tar.gz && \
-mkdir atheme-build && \
-tar xfz atheme-7.2.6.tar.gz -C atheme-build
-RUN cd atheme-build/* && \
-./configure --enable-contrib --prefix=/opt/atheme/ && \
+RUN git clone https://github.com/atheme/atheme.git atheme-devel
+RUN cd atheme-devel
+WORKDIR /root/atheme-devel
+RUN git checkout atheme-7.2.6
+RUN git submodule update --init
+RUN ./configure --enable-contrib --prefix=/opt/atheme/ --disable-nls && \
 make && \
 make install
-RUN chown -R ircd:ircd /opt/atheme
 
 
-ENV PATH /opt/charybdis/bin:$PATH
+ENV PATH /opt/charybdis/bin:/opt/atheme/bin/:$PATH
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY ircd.conf /opt/charybdis/etc/ircd.conf
 COPY atheme.conf /opt/atheme/etc/atheme.conf
+
+
+RUN chown -R ircd:ircd /opt/atheme
+RUN chown -R ircd:ircd /opt/charybdis
 
 CMD ["/usr/bin/supervisord"]

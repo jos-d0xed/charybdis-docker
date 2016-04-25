@@ -27,6 +27,4 @@ ENV PATH /opt/charybdis/bin:$PATH
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY ircd.conf /opt/charybdis/etc/ircd.conf
 
-EXPOSE 6667
-USER ircd
 CMD ["/usr/bin/supervisord"]

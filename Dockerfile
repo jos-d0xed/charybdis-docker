@@ -24,7 +24,9 @@ make install
 RUN chown -R ircd:ircd /opt/charybdis
 ENV PATH /opt/charybdis/bin:$PATH
 
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY ircd.conf /opt/charybdis/etc/ircd.conf
+
 EXPOSE 6667
 USER ircd
-ENTRYPOINT ["ircd"]
-CMD ["--help"]
+CMD ["/usr/bin/supervisord"]

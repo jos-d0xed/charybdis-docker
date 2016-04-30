@@ -46,4 +46,7 @@ COPY atheme.conf /opt/atheme/etc/atheme.conf
 RUN chown -R ircd:ircd /opt/atheme
 RUN chown -R ircd:ircd /opt/charybdis
 
+RUN rm -rf /root/atheme-devel
+RUN rm -rf /root/charybdis-build
+
 CMD ["/usr/bin/supervisord"]

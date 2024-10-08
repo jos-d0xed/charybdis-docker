@@ -36,7 +36,7 @@ make && \
 make install
 
 
-ENV PATH /opt/charybdis/bin:/opt/atheme/bin/:$PATH
+ENV PATH=/opt/charybdis/bin:/opt/atheme/bin/:$PATH
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY ircd.conf /opt/charybdis/etc/ircd.conf

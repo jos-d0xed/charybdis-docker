@@ -29,7 +29,7 @@ WORKDIR /root
 RUN git clone https://github.com/atheme/atheme.git atheme-devel
 RUN cd atheme-devel
 WORKDIR /root/atheme-devel
-RUN git checkout atheme-7.2.12
+RUN git checkout release/7.2
 RUN git submodule update --init
 RUN ./configure --enable-contrib --prefix=/opt/atheme/ --disable-nls && \
 make && \

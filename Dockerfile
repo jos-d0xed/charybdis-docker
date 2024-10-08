@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM ubuntu:24.04
 MAINTAINER Jeremy Elder <jeremy@d0xed.com>
 
 RUN apt-get update && apt-get install -y \
@@ -17,9 +17,9 @@ RUN mkdir /opt/charybdis
 RUN mkdir opt/atheme
 
 WORKDIR /root
-RUN wget https://github.com/charybdis-ircd/charybdis/archive/charybdis-3.5.1.tar.gz && \
+RUN wget https://github.com/charybdis-ircd/charybdis/archive/charybdis-3.5.5.tar.gz && \
 mkdir charybdis-build && \
-tar xfz charybdis-3.5.1.tar.gz -C charybdis-build
+tar xfz charybdis-3.5.5.tar.gz -C charybdis-build
 RUN cd charybdis-build/* && \
 ./configure --prefix=/opt/charybdis/ && \
 make && \
@@ -29,7 +29,7 @@ WORKDIR /root
 RUN git clone https://github.com/atheme/atheme.git atheme-devel
 RUN cd atheme-devel
 WORKDIR /root/atheme-devel
-RUN git checkout atheme-7.2.6
+RUN git checkout atheme-7.2.12
 RUN git submodule update --init
 RUN ./configure --enable-contrib --prefix=/opt/atheme/ --disable-nls && \
 make && \

@@ -12,7 +12,7 @@ git \
 pkg-config
 
 RUN groupadd -r ircd && \
-useradd -r -u 1000 -d /opt/charybdis -g ircd ircd
+useradd -r -u 1001 -d /opt/charybdis -g ircd ircd
 RUN mkdir /opt/charybdis
 RUN mkdir opt/atheme
 
